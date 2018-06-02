@@ -1,0 +1,21 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@taglib prefix="misc" uri="/roboadvisor-misc"%>
+
+<c:set var="isFormsPage" value="false" />
+<%@include file="header_base.jspf"%>
+<!-- begin #page-loader -->
+</body>
+<body style="background: #0E2437">
+<div id="page-loader" class="fade in">
+	<span class="spinner"></span>
+</div>
+<!-- end #page-loader -->
+<div class="login-cover">
+	<div class="login-cover-image"></div>
+	<div class="login-cover"></div>
+</div>
+<!-- begin #page-container -->
+<div id="page-container" class="fade">

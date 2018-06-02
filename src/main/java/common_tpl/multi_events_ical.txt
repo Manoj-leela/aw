@@ -1,0 +1,26 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-${url}
+BEGIN:VTIMEZONE
+TZID:Asia/Singapore
+TZURL:http://tzurl.org/zoneinfo-outlook/Asia/Singapore
+X-LIC-LOCATION:Asia/Singapore
+BEGIN:STANDARD
+TZOFFSETFROM:+0800
+TZOFFSETTO:+0800
+TZNAME:SGT
+DTSTART:19700101T000000
+END:STANDARD
+END:VTIMEZONE
+<#list events as event>
+BEGIN:VEVENT
+UID:${event.id}
+DTSTAMP:${event.dtstamp}
+DTSTART:${event.start}
+DTEND:${event.end}
+SUMMARY:${event.subject}
+DESCRIPTION:${event.description}
+LOCATION:${event.location}
+END:VEVENT
+</#list>
+END:VCALENDAR

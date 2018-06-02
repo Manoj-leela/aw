@@ -1,0 +1,197 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@taglib prefix="misc" uri="/roboadvisor-misc"%>
+<c:if test="${not appContextName}">
+	<c:set var="appContextName" value="/a/r" />
+</c:if>
+<c:if test="${not resourcesBase}">
+	<c:set var="resourcesBase" value="${appContextName}/../resources" />
+</c:if>
+<c:if test="${not assetsBase}">
+	<c:set var="assetsBase" value="${appContextName}/../assets" />
+</c:if>
+<!--Use for list page for the S/N count-->
+<c:set var="serialCount" value="${param['currentPage'] * param['resultsPerPage']}"></c:set>
+
+<%@include file="header_base.jspf" %>
+<c:if test="${empty param.contentOnly or param.contentOnly != 'true'}">
+	<!-- begin #page-loader -->
+	<div id="page-loader" class="fade in"><span class="spinner"></span></div>
+	<!-- end #page-loader -->
+	
+	<!-- begin #page-container -->
+	<div id="page-container" class="fade page-with-top-menu page-sidebar-fixed page-header-fixed page-sidebar-minified">
+		<!-- begin #header -->
+		<div id="header" class="header navbar navbar-default navbar-fixed-top" style="background: #122347">
+			<!-- begin container -->
+			<div class="container">
+				<!-- begin mobile sidebar expand / collapse button -->
+				<div class="navbar-header" style="margin-left:-3%;">
+					<a href="${appContextName}/admin/" class="navbar-brand navbar-head-width" style="padding-top: 2px;">
+					<img alt="FutureWealth" src="${assetsBase}/img/logo_active_wealth.PNG">
+					</a>
+					<button type="button" class="navbar-toggle" data-click="top-menu-toggled">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				</div>
+				<!-- end mobile sidebar expand / collapse button -->
+				<!-- begin header navigation right -->
+				<c:if test="${not empty userSession.user}">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown navbar-user">
+							<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" style="color: #ffffff">
+								<%-- <img src="${resourcesBase}/images/photo.jpg" alt="" /> --%> 
+								<span class="hidden-xs">${userSession.user.firstName} ${userSession.user.lastName}</span> <b class="caret"></b>
+							</a>
+							<ul class="dropdown-menu animated fadeInLeft">
+								<li class="arrow"></li>
+								<%-- <li><a href="${appContextName}/admin/user/profile">Edit Profile</a></li>
+								<li class="divider"></li>--%>
+								<li><a href="${appContextName}/admin/logout">Log Out</a></li>
+							</ul>
+						</li>
+					</ul>
+				</c:if>
+				<!-- end header navigation right -->
+			</div>
+			<!-- end container -->
+		</div>
+		<div id="sidebar" class="sidebar" style="background: #122347;">
+            <!-- begin sidebar scrollbar -->
+            <div data-scrollbar="true" data-height="100%">
+                <!-- begin sidebar nav -->
+                <ul class="nav semi-bold">
+                    <li><a href="${appContextName}/admin"><i class="fa fa-home"></i> <span>Home</span>
+                    </a></li>
+                        
+                    <li class="has-sub expand"><a href="javascript:;"> <b
+                            class="caret pull-right"></b> <i class="fa fa-cogs" aria-hidden="true"></i> <span>Manage</span>
+                    </a>
+                    
+                        <ul class="sub-menu" style="background: #122347;display: block;">
+                                <li class="subItem"><a href="${appContextName}/admin/user/list">User</a></li>
+                                <li class="subItem"><a href="${appContextName}/admin/agent/list">Agent</a></li>
+                                <li class="subItem"><a href="${appContextName}/admin/remittance/list">Remittance</a></li>
+                                <li class="subItem"><a href="${appContextName}/admin/redemption/list">Redemption</a></li>
+                                <li class="subItem"><a href="${appContextName}/admin/instrument/list">Instrument</a></li>
+                                <li class="subItem"><a href="${appContextName}/admin/portfolio/list">Portfolio</a></li>
+                                <li class="subItem"><a href="${appContextName}/admin/externalFund/list">Fund</a></li>
+                                <li class="subItem"><a href="${appContextName}/admin/externalFundPrice/list">Fund Price</a></li>
+                                <li class="subItem"><a href="${appContextName}/admin/externalFundSubscription/list">Fund Subscription</a></li>
+                                <li class="subItem"><a href="${appContextName}/admin/externalFundSubscriptionResold/list">Fund Resold</a></li>
+                    </ul></li>
+                    <li class="has-sub expand"><a href="javascript:;"> <b
+                            class="caret pull-right"></b> <i class="fa fa-history" aria-hidden="true"></i> <span>Instrument</span></a>
+                        <ul class="sub-menu" style="background: #122347;display: block;">
+                                <li class="subItem"><a href="${appContextName}/admin/rateHistory/list">Rate History</a></li> 
+                    </ul></li>
+                    <li class="has-sub expand"><a href="javascript:;"> <b
+                            class="caret pull-right"></b> <i class="fa fa-list-alt" aria-hidden="true"></i> <span>Remittance
+                                </span>
+                    </a>
+                        <ul class="sub-menu" style="background: #122347;display: block;">
+                                <li class="subItem"><a href="${appContextName}/admin/remittance/customlist?investorRemittanceStatus=Submitted">Online Banking Reconciliation</a></li>
+                                <li class="subItem"><a href="${appContextName}/admin/remittance/customlist?brokerFundingStatus=Unprocessed">Broker Funding</a></li>
+                                <li class="subItem"><a href="${appContextName}/admin/remittance/customlist?investorRemittanceStatus=Issues">Online Banking Issues</a></li>
+                                <li class="subItem"><a href="${appContextName}/admin/remittance/customlist?brokerFundingStatus=Issues">Broker Funding Issues</a></li>
+                        </ul></li>
+                    <li class="has-sub expand"><a href="javascript:;"> <b
+                            class="caret pull-right"></b> <i class="fa fa-list-alt" aria-hidden="true"></i> <span>Redemption
+                                </span>
+                    </a>
+                        <ul class="sub-menu" style="background: #122347;display: block;">
+                                <li class="subItem"><a href="${appContextName}/admin/redemption/customlist?redemptionStatus=RequestedByInvestor">Redemption Request</a></li>
+                                <li class="subItem"><a href="${appContextName}/admin/redemption/customlist?redemptionStatus=SentToBroker">Broker Redemption</a></li>
+                                <li class="subItem"><a href="${appContextName}/admin/redemption/customlist?redemptionStatus=ReceivedFromBroker">Complete Redemption</a></li>
+                                <li class="subItem"><a href="${appContextName}/admin/redemption/customlist?redemptionStatus=Issues">Have Issues</a></li>
+                        </ul></li>
+                    
+                    <li class="has-sub expand"><a href="javascript:;"><b class="caret pull-right"></b><i class="fa fa-cogs" aria-hidden="true"></i> <span>Assignment</span></a>
+                    	<ul class="sub-menu" style="background:#122347;display: block;">
+                    		<li class="subItem"><a href="${appContextName}/admin/userPortfolio/list">User Portfolio</a></li>	
+                   	</ul></li>
+                   	
+                   	
+                   	
+                    <li class="has-sub expand"><a href="javascript:;"> <b
+                            class="caret pull-right"></b> <i class="fa fa-list-alt" aria-hidden="true"></i> <span>View
+                                </span>
+                    </a>
+                        <ul class="sub-menu" style="background: #122347;display: block;">
+                        
+                                <li class="subItem"><a href="${appContextName}/admin/userTrade/list">User Trade</a></li>
+                                <%-- <li class="subItem"><a href="${appContextName}/admin/transaction/list">User Transaction</a></li> --%>
+                                <li class="subItem"><a href="${appContextName}/admin/userPortfolioTransaction/list">Portfolio Transaction</a></li>
+                                <li class="subItem"><a href="${appContextName}/admin/userTradeTransaction/list">Trade Transaction</a></li>
+                                
+                        </ul></li>
+                    <li class="has-sub expand"><a href="javascript:;"><b class="caret pull-right"></b><i class="fa fa-cogs" aria-hidden="true"></i> <span>Execution</span></a>
+                    	<ul class="sub-menu" style="background:#122347;display: block;">
+                    		<li class="subItem"><a href="${appContextName}/admin/triggers/list">Triggers</a></li>	
+                    		<li class="subItem"><a href="${appContextName}/admin/userPortfolio/execution?status=NotExecuted&currentPage=0">Pending Place Order</a></li>
+                    		<li class="subItem"><a href="${appContextName}/admin/userPortfolio/execution?status=PartiallyExecuted&currentPage=0">Partially In Market</a></li>
+                    		<li class="subItem"><a href="${appContextName}/admin/userPortfolio/execution?status=Executed&currentPage=0">In Market</a></li>
+                    		<li class="subItem"><a href="${appContextName}/admin/userPortfolio/execution?status=ReadyForClose&currentPage=0">Pending Close Order</a></li>
+                    		<li class="subItem"><a href="${appContextName}/admin/userPortfolio/execution?status=PartiallyClosed&currentPage=0">Partially Closed</a></li>
+                   	</ul></li>
+                   	
+                   	<li class="has-sub expand"><a href="javascript:;"><b class="caret pull-right"></b><i class="fa fa-th" aria-hidden="true"></i> <span>Report</span></a>
+                    	<ul class="sub-menu" style="background:#122347;display: block;">
+                    		<li class="subItem"><a href="${appContextName}/admin/report/create">Management Report</a></li>	
+                   	</ul></li>
+                   	
+                    <!-- begin sidebar minify button -->
+                    <li><a href="javascript:;" class="sidebar-minify-btn"
+                        data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a></li>
+                    <!-- end sidebar minify button -->
+                </ul>
+                <!-- end sidebar nav -->
+            </div>
+            <!-- end sidebar scrollbar -->
+        </div>
+        <div class="sidebar-bg" style="background: #122347;"></div>
+		<!-- end #header -->
+		<!-- begin #top-menu -->
+        <%-- <div id="top-menu" class="top-menu ">
+            <!-- begin top-menu nav -->
+            <ul class="nav"  style="text-align:center">
+            	<li><a href="${appContextName}/admin/user/list"><i class="fa fa-user" aria-hidden="true"></i><span>Users</span></a></li>
+                <li><a href="${appContextName}/admin/instrument/list"><i class="fa fa-dot-circle-o"></i><span>Instruments</span></a></li>
+                <li><a href="${appContextName}/admin/portfolio/list"><i class="fa fa-tasks"></i><span>Portfolios</span></a></li>
+            </ul>
+            <!-- end top-menu nav -->
+        </div> --%>
+        <!-- end #top-menu -->
+		<!-- begin #content -->
+		<div id="content" class="content">
+</c:if>
+<script lang="javascript">
+$(document).ready(
+    function(page) {
+        var serverUrl = '${requestPage}';
+        var appContextName = '${appContextName}';
+        $(".subItem").find('a').each(function(index,targets) {
+            subUrl = $(targets).attr('href')
+            var appContextFinal = appContextName.replace("/a/r","\/a\/r");
+            var x = appContextFinal+"\/admin\/([a-zA-Z]+)((\/)?(.*))?";
+            var finalExp = subUrl.match(x);
+            if(finalExp != null){
+                subUrl = "/a/r/admin/"+finalExp[1]+"/"+finalExp[4];
+                if (serverUrl.indexOf(subUrl) != -1) { 
+                    if(serverUrl.indexOf(finalExp[4]) != -1){
+                        $(this).parent().addClass("active");
+                        $(".has-sub .active").parent().parent().addClass('expand active');
+                        return false;
+                    }
+               }
+            } 
+
+        })  
+    });
+</script>
+<!-- alert / duplicated on forms page -->
+<%@include file="alert.jspf" %>

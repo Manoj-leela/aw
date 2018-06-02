@@ -1,0 +1,8 @@
+package sg.activewealth.roboadvisor.infra.exception;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(value= HttpStatus.PRECONDITION_FAILED, reason="Email address already registered")
+public class EmailAddressRegisteredException extends AbstractException {
+}

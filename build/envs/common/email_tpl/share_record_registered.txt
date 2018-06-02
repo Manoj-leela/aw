@@ -1,0 +1,7 @@
+Hi {{name}},
+
+{{sharer}} shared a data-card with you, please go to this link below to access it!
+{{sharedLink}}
+
+Thank you.
+Data-EX

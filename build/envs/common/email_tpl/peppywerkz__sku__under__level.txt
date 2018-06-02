@@ -1,0 +1,10 @@
+Hello, <br/>
+<br/>
+This is the automatic warning about the total number of items are below the allowed level.<br/>
+<br/>
+
+{{content}}
+
+<br/>
+Best Regards,<br/>
+Peppywerkz System

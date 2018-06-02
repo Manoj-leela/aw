@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.1.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+	<bean id="roboAdvisorQuartzScheduler"
+		  class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="dataSource" ref="masterDataSource"/>
+		<property name="applicationContextSchedulerContextKey" value="applicationContext"/>
+		<property name="waitForJobsToCompleteOnShutdown" value="true"/>
+		<property name="startupDelay" value="5"/>
+		<property name="transactionManager" ref="transactionManager"/>
+		<property name="jobDetails">
+			<list>
+				<ref bean="placeOrderRequestJob"/>
+				<ref bean="placeOrderErrorRetryJob"/>
+				<ref bean="closeOrderRequestJob"/>
+				<ref bean="closeOrderErrorRetryJob"/>
+				<ref bean="tradeCreationJob"/>
+				<ref bean="paymentInitiationJob"/>
+				<ref bean="paymentInitiationErrorRetryJob"/>
+				<ref bean="fundPortfolioJob"/>
+				<ref bean="portfolioFundReleaseJob"/>
+				<ref bean="updateRateJob"/>
+			</list>
+		</property>
+		<property name="triggers">
+			<list>
+				<!-- <ref bean="placeOrderRequestJobTrigger"/> 
+				<ref bean="placeOrderErrorRetryJobTrigger"/>
+				<ref bean="closeOrderRequestJobTrigger"/> 
+				<ref bean="closeOrderErrorRetryJobTrigger"/>
+				<ref bean="tradeCreationJobTrigger"/>
+				<ref bean="paymentInitiationJobTrigger"/>
+				<ref bean="paymentInitiationErrorRetryJobTrigger"/>
+				<ref bean="fundPortfolioJobTrigger"/>
+				<ref bean="portfolioFundReleaseJobTrigger"/> -->
+				<ref bean="updateRateJobTrigger"/>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean name="placeOrderRequestJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="sg.activewealth.roboadvisor.common.jobs.PlaceOrderJob"/>
+		<property name="durability" value="true"/>
+	</bean>
+	<!--
+	<bean name="placeOrderRequestJobTrigger"
+		  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="placeOrderRequestJob"/>
+		<property name="cronExpression" value="${scheduler.placeOrder.cron}"/>
+		<property name="misfireInstruction" value="2"/>
+	</bean>
+	-->
+
+	<bean name="placeOrderErrorRetryJob"
+		  class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="sg.activewealth.roboadvisor.common.jobs.PlaceOrderErrorRetryJob"/>
+		<property name="durability" value="true"/>
+	</bean>
+	<bean name="placeOrderErrorRetryJobTrigger"
+		  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="placeOrderErrorRetryJob"/>
+		<property name="cronExpression" value="${scheduler.placeOrderError.cron}"/>
+		<property name="misfireInstruction" value="2"/>
+	</bean>
+
+	<bean name="closeOrderRequestJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="sg.activewealth.roboadvisor.common.jobs.CloseOrderJob"/>
+		<property name="durability" value="true"/>
+	</bean>
+	<!--
+	<bean name="closeOrderRequestJobTrigger"
+		  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="closeOrderRequestJob"/>
+		<property name="cronExpression" value="${scheduler.closeOrder.cron}"/>
+		<property name="misfireInstruction" value="2"/>
+	</bean>
+	-->
+
+	<bean name="closeOrderErrorRetryJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="sg.activewealth.roboadvisor.common.jobs.CloseOrderErrorRetryJob"/>
+		<property name="durability" value="true"/>
+	</bean>
+	<bean name="closeOrderErrorRetryJobTrigger"
+		  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="closeOrderErrorRetryJob"/>
+		<property name="cronExpression" value="${scheduler.closeOrderError.cron}"/>
+		<property name="misfireInstruction" value="2"/>
+	</bean>
+
+	<bean name="tradeCreationJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="sg.activewealth.roboadvisor.common.jobs.TradeCreationJob"/>
+		<property name="durability" value="true"/>
+	</bean>
+	<bean name="tradeCreationJobTrigger"
+		  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="tradeCreationJob"/>
+		<property name="cronExpression" value="${scheduler.tradeCreation.cron}"/>
+		<property name="misfireInstruction" value="2"/>
+	</bean>
+
+	<bean name="paymentInitiationJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="sg.activewealth.roboadvisor.common.jobs.PaymentInitiationJob"/>
+		<property name="durability" value="true"/>
+	</bean>
+	<bean name="paymentInitiationJobTrigger"
+		  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="paymentInitiationJob"/>
+		<property name="cronExpression" value="${scheduler.paymentInitiation.cron}"/>
+		<property name="misfireInstruction" value="2"/>
+	</bean>
+	<bean name="paymentInitiationErrorRetryJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="sg.activewealth.roboadvisor.common.jobs.PaymentInitiationErrorRetryJob"/>
+		<property name="durability" value="true"/>
+	</bean>
+	<bean name="paymentInitiationErrorRetryJobTrigger"
+		  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="paymentInitiationErrorRetryJob"/>
+		<property name="cronExpression" value="${scheduler.paymentInitiationErrorRetry.cron}"/>
+		<property name="misfireInstruction" value="2"/>
+	</bean>
+
+	<bean name="fundPortfolioJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="sg.activewealth.roboadvisor.common.jobs.FundPortfolioJob"/>
+		<property name="durability" value="true"/>
+	</bean>
+	<bean name="fundPortfolioJobTrigger"
+		  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="fundPortfolioJob"/>
+		<property name="cronExpression" value="${scheduler.fundPortfolio.cron}"/>
+		<property name="misfireInstruction" value="2"/>
+	</bean>
+
+	<bean name="portfolioFundReleaseJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="sg.activewealth.roboadvisor.common.jobs.PortfolioFundReleaseJob"/>
+		<property name="durability" value="true"/>
+	</bean>
+	<!-- <bean name="portfolioFundReleaseJobTrigger"
+		  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="portfolioFundReleaseJob"/>
+		<property name="cronExpression" value="${scheduler.portfolioFundRelease.cron}"/>
+		<property name="misfireInstruction" value="2"/>
+	</bean> -->
+
+	<bean name="updateRateJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="sg.activewealth.roboadvisor.common.jobs.UpdateRateJob"/>
+		<property name="durability" value="true"/>
+	</bean>
+	<bean name="updateRateJobTrigger"
+		  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="updateRateJob"/>
+		<property name="cronExpression" value="${scheduler.updateRate.cron}"/>
+		<property name="misfireInstruction" value="2"/>
+	</bean>
+</beans>

@@ -1,0 +1,66 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@taglib prefix="misc" uri="/roboadvisor-misc"%>
+<c:if test="${not appContextName}">
+    <c:set var="appContextName" value="/a/r" />
+</c:if>
+<c:if test="${not resourcesBase}">
+    <c:set var="resourcesBase" value="${appContextName}/../resources" />
+</c:if>
+<c:if test="${not assetsBase}">
+    <c:set var="assetsBase" value="${appContextName}/../assets" />
+</c:if>
+
+<%@include file="header_base.jspf" %>
+<c:if test="${empty param.contentOnly or param.contentOnly != 'true'}">
+    <!-- begin #page-loader -->
+    <div id="page-loader" class="fade in"><span class="spinner"></span></div>
+    <!-- end #page-loader -->
+    
+    <!-- begin #page-container -->
+    <div id="page-container" class="fade page-with-top-menu page-header-fixed">
+        <!-- begin #header -->
+        <div id="header" class="header navbar navbar-default navbar-fixed-top" style="background: #122347">
+            <!-- begin container -->
+            <div class="container">
+                <!-- begin mobile sidebar expand / collapse button -->
+                <div class="navbar-header" style="margin-left:-118px;">
+                    <a href="${appContextName}/admin/?${userSession.user.id}" class="navbar-brand navbar-head-width" style="padding-top: 2px;">
+                    <img alt="FutureWealth" src="${assetsBase}/img/logo_active_wealth.PNG">
+                    </a>
+                    <button type="button" class="navbar-toggle" data-click="top-menu-toggled">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <!-- end mobile sidebar expand / collapse button -->
+                <!-- begin header navigation right -->
+                <c:if test="${not empty userSession.user}">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown navbar-user">
+                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" style="color: #ffffff">
+                                <%-- <img src="${resourcesBase}/images/photo.jpg" alt="" /> --%> 
+                                <span class="hidden-xs">${userSession.user.firstName} ${userSession.user.lastName}</span> <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu animated fadeInLeft">
+                                <li class="arrow"></li>
+                                <%-- <li><a href="${appContextName}/admin/user/profile">Edit Profile</a></li>
+                                <li class="divider"></li>--%>
+                                <li><a href="${appContextName}/admin/logout">Log Out</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </c:if>
+                <!-- end header navigation right -->
+            </div>
+            <!-- end container -->
+        </div>
+       
+        <div id="content" class="content">
+</c:if>
+
+<!-- alert / duplicated on forms page -->
+<%@include file="alert.jspf" %>

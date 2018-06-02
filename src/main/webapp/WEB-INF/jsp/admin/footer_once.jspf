@@ -1,0 +1,52 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
+<script type="text/javascript">
+$(document).ready( function() {
+	var $BODY = $('._body');
+	$('.deleteButton').on("click", function() {
+		if (confirm('Confirm delete?')) {
+	        var id = $(this).data('id');
+			var deleteForm = document.deleteForm;
+			if (!deleteForm.id) { //means its an array
+				deleteForm = deleteForm[0];
+			}
+			deleteForm.id.value = id;
+			deleteForm.submit();
+
+	    }
+	});	
+	 $BODY.undelegate('.updateBtn', 'click').delegate('.updateBtn', 'click', function(event) {
+         var href = $(this).attr('href');
+			debugger
+			var attr = $(this).attr('href-original');
+			if (typeof attr !== typeof undefined && attr !== false) {
+				href = $(this).attr('href-original');
+			} else {
+				$(this).attr('href-original', href);
+			}
+			
+			var selectid = $(this).parent().find('select').val();
+			var updateurl = "";
+			if (selectid != "" && selectid != null) {
+				updateurl = href + "?id=" + selectid;
+			} else {
+				updateurl = href;
+				alert('Please select atleast one');
+				return false;
+			}
+			$(this).attr('href', updateurl);
+		});
+});
+$('#filterForm :reset').on('click', function(evt) {
+    evt.preventDefault()
+    $form = $(evt.target).closest('form')
+    $form[0].reset()
+    $form.find('input').prop('checked', false); // Unchecks it
+    $form.find('input').val("");
+    $form.find('select').val("");
+    $form.find('select').selectpicker('refresh');
+});
+</script>

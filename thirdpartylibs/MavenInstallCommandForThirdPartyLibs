@@ -1,0 +1,1 @@
+mvn install:install-file -DgroupId=com.interactivebrokers.tws -DartifactId=tws-api -Dversion=9.73.06 -Dpackaging=jar -Dfile=/path/to/file

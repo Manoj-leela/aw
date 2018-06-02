@@ -1,0 +1,8 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+
+		<%pageContext.setAttribute("page_uid", new Long(System.currentTimeMillis()).toString()); %>
+		<div class="page_uid_${page_uid}" />
+<c:if test="${empty param.contentOnly or param.contentOnly != 'true'}">
+	</body>
+</html>
+</c:if>

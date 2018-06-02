@@ -1,0 +1,28 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@taglib prefix="misc" uri="/roboadvisor-misc"%>
+
+<!-- alertMessages set from spring_errors -->
+<!-- formsPage will set the variable to true before header so header don't show -->
+<c:if test="${(empty isFormsPage or isFormsPage == false or not empty alertMessages) and not empty userOperationContext and not empty userOperationContext.resultType and not empty userOperationContext.messageFromBundle}">
+	<div class="_uoc_alert alert 
+	    <c:choose>
+	        <c:when test="${userOperationContext.resultType == 'Success'}">alert-success</c:when>
+	        <c:when test="${userOperationContext.resultType == 'Failure'}">alert-danger</c:when>
+	        <c:when test="${userOperationContext.resultType == 'Warning'}">alert-warning</c:when>
+	    </c:choose> alert-dismissible" role="alert">
+		<button type="button" class="close" data-dismiss="alert">x</button>
+		<div class="_bold _subtitle">
+			<i class="fa <c:choose><c:when test="${userOperationContext.resultType == 'Success'}">fa-check-circle</c:when><c:when test="${userOperationContext.resultType == 'Failure'}">fa-times-circle</c:when><c:when test="${userOperationContext.resultType == 'Warning'}">fa-exclamation-circle</c:when></c:choose>"></i>
+			${userOperationContext.messageFromBundle}
+		</div>
+		<c:if test="${not empty alertMessages}">${alertMessages}</c:if>
+		
+	</div>
+	<script>document.cookie = '${userOperationContextCookieName}=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';</script>
+	<%if (pageContext.findAttribute("userOperationContextCookieName") != null) sg.activewealth.roboadvisor.infra.utils.CookieUtils.getInstance().clearCookie(response, pageContext.findAttribute("userOperationContextCookieName").toString()); %>
+</c:if>
+<!-- once this is fired by header, set to false so show for the formsPage itself -->
+<c:set var="isFormsPage" value="false"/>

@@ -1,0 +1,5 @@
+</div>
+
+<%@include file="footer_once.jspf" %>
+<!-- end page container -->
+<%@include file="footer_base.jspf" %>

@@ -1,0 +1,483 @@
+//CUSTOM_FOR_CM
+/*
+	This exists to override Colour Admin's styles.
+	During version upgrades, we can simply replace the other .less files and retain the following custom:
+	- app.less
+	- overrides.less
+	- _responsive.less iPad width
+*/
+
+//############################## theme overrides ##############################
+//############################## header ##############################
+.navbar-nav > li > a .label {
+	background: @brand-danger;
+}
+
+//############################## content ##############################
+.content {
+    padding: @spacing_020;
+}
+.page-header {
+	font-size: @font_size_title;
+	line-height: @font_size_title;
+	font-family: @body_font_family_bold;
+	margin-bottom: @spacing_015;
+}
+._page_header_with_top_right_actions {
+	float: left;
+}
+
+//############################## badge_label ############################## 
+.label {
+	line-height: 1.8;
+	vertical-align: top;
+	padding: .3em .6em .3em
+}
+
+//############################## panel ##############################
+.panel-title {
+	font-size: @font_size_subtitle;
+	font-family: @body_font_family_bold;
+}
+.panel-default > .panel-heading {
+    background: @brand-primary;
+}
+.panel-inverse > .panel-heading { background: @black; }
+.panel-success > .panel-heading { background: @green; }
+.panel-warning > .panel-heading { background: @orange; }
+.panel-danger > .panel-heading { background: @red; }
+.panel-primary > .panel-heading { background: @blue; }
+.panel-info > .panel-heading { background: @aqua; }
+
+.panel:last-child {
+	margin-bottom: 0px;
+}
+.panel-heading .panel-heading-btn .btn {
+	padding-top: 1px !important;
+}
+
+//############################## sidebar ##############################
+.sidebar {
+    background: @brand-primary;
+}
+.sidebar-bg {
+    background: @brand-primary;
+}
+.sidebar .nav > li > a {
+    padding: 15px 20px; //menu item
+    color: @white;
+}
+.sidebar .nav > li > a:hover,
+.sidebar .nav > li > a:focus {
+    background: @white;
+    color: @brand-primary;
+}
+.sidebar .nav > li.active > a {
+    background: @brand-primary;
+    color: @white;
+} 
+.sidebar .nav > li.active > a:hover, 
+.sidebar .nav > li.active > a:focus {
+    background: @white;
+    color: @brand-primary;
+}
+.sidebar .nav > li > a .badge {
+    background: @white;
+    color: @brand-primary;
+    margin-top: 0px;
+}
+.sidebar .sub-menu {
+    padding: 10px 0px;
+    background: @brand-primary;
+    color: @white;
+}
+.sidebar .sub-menu:before {
+	//display: none;
+	background: @white;	//submenu bar
+}
+.sidebar .sub-menu > li > a {
+    padding: 10px 0px 10px 40px; //submenu item
+    color: @white;
+}
+.sidebar .sub-menu > li > a:before {
+	//display: none; //submenu item icon
+	color: @white;
+	left: 30px;
+}
+.sidebar .sub-menu > li > a:hover:before {
+	color: @brand-primary;
+}
+.sidebar .sub-menu > li > a:hover,
+.sidebar .sub-menu > li > a:focus,
+.sidebar .sub-menu > li.active > a,
+.sidebar .sub-menu > li.active > a:hover,
+.sidebar .sub-menu > li.active > a:focus {
+    color: @brand-primary;
+    background-color: @white;
+}
+.sidebar .nav > li.nav-header {
+	color: @white;
+}
+.sidebar .nav > li.active > a .label.label-theme,
+.sidebar .nav > li.active > a .badge {
+	background: @white;	
+}
+.sidebar .nav > li.active > a:focus .label.label-theme,
+.sidebar .nav > li.active > a:hover .label.label-theme,
+.sidebar .nav > li.active > a:focus .badge,
+.sidebar .nav > li.active > a:hover .badge {
+	background: @brand-primary;
+	color: @white;	
+}
+.sidebar .nav > li > a i {
+	font-size: @body_font_size;
+	line-height: 18px;
+}
+.sidebar-minify-btn:hover i,
+.sidebar-minify-btn:focus i {
+	color: @brand-primary;
+}
+.page-sidebar-minified .sidebar .nav li.has-sub > .sub-menu {
+	background-color: @brand-primary;
+	padding: 10px 0px;
+}
+.page-sidebar-minified .sidebar .nav > li.has-sub:hover > a,
+.page-sidebar-minified .sidebar .nav > li.has-sub:focus > a {
+	background-color: @white;
+	color: @brand-primary;
+}
+
+@media (max-width: @screen-xs-max) { //up to 768
+	.page-sidebar-minified .sidebar-bg {
+		display: none;
+	}
+}
+
+//############################## button ##############################
+// .btn-default
+.generate-button-styling(btn-default; @brand-primary; @dark_blue);
+// .btn-inverse
+.generate-button-styling(btn-inverse; @brand-inverse; darken(@brand-inverse, 15%)); //only button have darken(@brand-inverse)
+.btn {
+	padding-top: @spacing_010;
+	padding-bottom: @spacing_010;
+}
+.panel-heading .btn {
+	margin-top: -3px !important;
+	padding-top: 5px;
+	padding-bottom: 3px;
+}
+.form-control {
+	height: auto !important;
+	padding-top: @spacing_010;
+	padding-bottom: @spacing_010;
+}
+
+//############################## orange theme ##############################
+.navbar-logo,
+.coming-soon .brand .logo,
+.login .login-header .brand .logo {
+    border-color: #DF8F19 #c47d15 #935e10;
+}
+.navbar-brand {
+	width: auto;
+	padding-top: 9px;
+}
+.navbar.navbar-inverse .navbar-brand,
+.page-sidebar-minified .sidebar .nav > li.has-sub.active:focus > a, 
+.page-sidebar-minified .sidebar .nav > li.has-sub.active:hover > a, 
+.page-sidebar-minified .sidebar .nav > li.has-sub.active > a,
+.label.label-theme {
+    background: @white;
+    color: @brand-primary;
+}
+.btn.btn-scroll-to-top {
+	background: @brand-inverse;
+    color: @white;
+}
+.navbar.navbar-inverse .navbar-brand {
+    color: #fff !important;
+}
+.text-theme,
+.sidebar .sub-menu > li.active > a:before {
+    color: @brand-primary; //submenu active icon
+}
+.sidebar .sub-menu > li.active > a .text-theme,
+.sidebar .sub-menu > li > a:focus .text-theme,
+.sidebar .sub-menu > li > a:hover .text-theme {
+    color: @brand-primary;
+}
+
+@media (max-width: @screen-xs-max) { //up to 768
+    .navbar-inverse .navbar-header {
+        background: @brand-primary;
+    }
+}
+
+//############################## alert_note ##############################
+/* Alert - basicaly whole file change */
+
+.alert {
+    border: none;
+    color: @white;
+}
+.alert.alert-success {
+    background: @brand-success;
+}
+.alert.alert-info {
+    background: @brand-info;
+}
+.alert.alert-danger {
+    background: @brand-danger;
+}
+.alert.alert-warning {
+    background: @brand-warning;
+}
+
+.alert-dismissable .close, .alert-dismissible .close {
+	top: -6px;
+}
+
+/* Note Setting */
+
+.note {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-left: 3px solid;
+}
+.note.note-success {
+    border-color: darken(@brand-success, 15%);
+    background: @brand-success;
+    color: @white;
+}
+.note.note-danger {
+    border-color: darken(@brand-danger, 15%);
+    background: @brand-danger;
+    color: @white;
+}
+.note.note-info {
+    border-color: darken(@brand-info, 15%);
+    background: @brand-info;
+    color: @white;
+}
+.note.note-warning {
+    border-color: darken(@brand-warning, 15%);
+    background: @brand-warning;
+    color: @white;
+}
+
+.note.note-success h1, 
+.note.note-success h2, 
+.note.note-success h3, 
+.note.note-success h4, 
+.note.note-success h5, 
+.note.note-success h6,
+.note.note-danger h1, 
+.note.note-danger h2, 
+.note.note-danger h3, 
+.note.note-danger h4, 
+.note.note-danger h5, 
+.note.note-danger h6,
+.note.note-info h1, 
+.note.note-info h2, 
+.note.note-info h3, 
+.note.note-info h4, 
+.note.note-info h5, 
+.note.note-info h6,
+.note.note-warning h1, 
+.note.note-warning h2, 
+.note.note-warning h3, 
+.note.note-warning h4, 
+.note.note-warning h5, 
+.note.note-warning h6 {
+    font-weight: bold;
+    color: @white;
+}
+
+//timeline
+.timeline:before,
+.timeline .timeline-icon a {
+	background: @brand-inverse;
+}
+.timeline .timeline-icon a {
+	border: 5px solid darken(@brand-inverse, 15%);
+}
+.timeline .timeline-icon a:hover, .timeline .timeline-icon a:focus {
+	background: @brand-primary;
+}
+.timeline-header .username,
+.timeline-header .username a {
+	color: @brand-primary;
+}
+
+//############################## spinner ##############################
+.spinner, 
+.spinner-small {
+    border-top: 2px solid @brand-primary;
+}
+
+//############################## tables ##############################
+.table-responsive {
+	width: 100%;	
+}
+.table-striped > tbody > tr:nth-child(odd) > td, 
+.table-striped > tbody > tr:nth-child(odd) > th {
+	background: @gray-lighter;
+}
+
+//############################## dropdown menus ##############################
+.dropdown-menu {
+	font-size: @font_size_normal;
+}
+.dropdown-menu > .active > a, 
+.dropdown-menu > .active > a:hover, 
+.dropdown-menu > .active > a:focus {
+	background: @brand-primary;
+}
+.dropdown-menu > li > a {
+	padding: @spacing_010;
+}
+
+//############################## datepicker ##############################
+.datepicker table tr td.active:hover, 
+.datepicker table tr td.active:hover:hover, 
+.datepicker table tr td.active.disabled:hover, 
+.datepicker table tr td.active.disabled:hover:hover, 
+.datepicker table tr td.active:focus, 
+.datepicker table tr td.active:hover:focus, 
+.datepicker table tr td.active.disabled:focus, 
+.datepicker table tr td.active.disabled:hover:focus, 
+.datepicker table tr td.active:active, 
+.datepicker table tr td.active:hover:active, 
+.datepicker table tr td.active.disabled:active, 
+.datepicker table tr td.active.disabled:hover:active, 
+.datepicker table tr td.active.active,
+.datepicker table tr td span.active.active,
+.datepicker table tr td.active:hover.active, 
+.datepicker table tr td.active.disabled.active, 
+.datepicker table tr td.active.disabled:hover.active, 
+.open .dropdown-toggle.datepicker table tr td.active, 
+.open .dropdown-toggle.datepicker table tr td.active:hover, 
+.open .dropdown-toggle.datepicker table tr td.active.disabled, 
+.open .dropdown-toggle.datepicker table tr td.active.disabled:hover {
+	background: @brand-primary !important;	
+}
+.datepicker.dropdown-menu {
+	z-index: 1041 !important; //higher than modal
+}
+
+//############################## navbar ##############################
+.navbar-nav.navbar-right:last-child {
+	margin-right: 0px !important;
+}
+.navbar-form .btn-search {
+	color: @brand-inverse;
+}
+.navbar-form .btn-search:hover,
+.navbar-form .btn-search:hover {
+	color: @brand-primary;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+	color: @brand-primary;
+	opacity: 1;
+}
+
+//############################## login ##############################
+.login.login-v2 .login-header {
+	color: @brand-inverse;
+}
+@media (max-width: @screen-xs-max) { //up to 768
+	.login-cover + #page-container {
+		padding: 0px @spacing_020;
+	}
+	
+	.login-cover {
+		background: none;
+	}
+}
+@media (min-width: @screen-sm) { //769 onwards - only for desktop
+	.login-cover {
+		background: url('../../img/bg_login1.jpg');
+		background-size: cover;
+	}
+}
+.login-cover-bg {
+	background: @white;
+}
+.login .login-content {
+	color: @white;
+}
+.login .login-content a {
+	color: @brand-primary;
+}
+
+//############################## label ##############################
+.form-control-static {
+	padding-top: 22px !important;
+}
+
+//############################## chats ##############################
+.chats .name .label {
+	padding: 3px 4px 2px;
+}
+//not too sure why not showing up even if in less
+.chats .right .message:after, .chats .right .message:before { 
+	left: auto;
+	right: -14px;
+	border-right-color: transparent;
+	border-left-color: #ccd0d4;}
+.chats .right .message:after {
+	right: -13px;
+	border-left-color: #fff;
+}
+.chats .message {
+	font-size: @font_size_normal; //same as textarea input
+}
+
+//############################## gritter ##############################
+.gritter-close, .gritter-light .gritter-close {
+	background: @brand-primary !important;
+	right: 0px !important;
+}
+.gritter-item {
+	font-size: @font_size_normal !important; //same as inputs
+}
+.gritter-title {
+	font-size: @body_font_size !important;
+}
+.gritter-close, .gritter-light .gritter-close,
+.gritter-close:before, .gritter-light .gritter-close:before {
+	width: @spacing_020 !important;
+	height: @spacing_020 !important;
+	line-height: @spacing_020 !important;
+	font-size: @body_font_size !important;
+}
+
+//############################## fullcalendar ##############################
+.fc-event {
+	border: none !important;
+}
+
+.fc-content {
+	padding: @spacing_005; 
+}
+
+.fc-widget-header {
+    padding: 0px !important;
+}
+
+//############################## nav-pills ##############################
+.nav-pills > li.active > a, 
+.nav-pills > li.active > a:hover, 
+.nav-pills > li.active > a:focus {
+	font-family: @body_font_family_bold;
+	//background: @brand-primary;
+}
+.tab-content {
+	padding: 0px;
+	background: none;
+}
+.nav-pills > li > a {
+	border: 1px solid @brand-inverse;
+}

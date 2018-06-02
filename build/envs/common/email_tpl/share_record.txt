@@ -1,0 +1,10 @@
+Hi {{name}}
+
+{{sharer}} shared a data-card with you. In order to access the information, an account needs to be created first.
+
+Please follow instructions below:
+1. Signin and access to your account with this link: {{signIn}}
+2. Go to Data-cards or click this link: {{sharedLink}}
+
+Thank you.
+Data-EX
